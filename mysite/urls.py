@@ -15,6 +15,6 @@ urlpatterns = patterns(
     url(r'^accounts/logout/$', LogoutView.as_view(), name='logout'),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', HomePageView.as_view(), name='home'),
-    url(r'^$', OutPageView.as_view(), name='out'),
+    url(r'^out/', OutPageView.as_view(), name='out'),
 
 )

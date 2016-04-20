@@ -59,4 +59,3 @@ class LogoutView(views.LoginRequiredMixin, views.MessageMixin,
         #self.messages.success("You've been logged out. Come back soon!")
         logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
-
