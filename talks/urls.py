@@ -5,8 +5,7 @@ from django.conf.urls import patterns, url, include
 from . import views
 
 
-lists_patterns = patterns(
-    '',
+lists_patterns = [
     url(r'^$', views.TalkListListView.as_view(), name='list'),
     url(r'^d/(?P<slug>[-\w]+)/$', views.TalkListDetailView.as_view(),
         name='detail'),
@@ -18,16 +17,14 @@ lists_patterns = patterns(
     url(r'^remove/(?P<talklist_pk>\d+)/(?P<pk>\d+)/$',
         views.TalkListRemoveTalkView.as_view(),
         name='remove_talk'),
-)
+]
 
-talks_patterns = patterns(
-    '',
+talks_patterns = [
     url('^d/(?P<slug>[-\w]+)/$', views.TalkDetailView.as_view(),
         name='detail'),
-)
+]
 
-urlpatterns = patterns(
-    '',
+urlpatterns = [
     url(r'^lists/', include(lists_patterns, namespace='lists')),
     url(r'^talks/', include(talks_patterns, namespace='talks')),
-)
+]

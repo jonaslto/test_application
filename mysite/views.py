@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 from django.views import generic
+from django.http import HttpResponseRedirect, HttpResponse
 
 from braces import views
 
@@ -48,14 +49,28 @@ class LoginView(views.AnonymousRequiredMixin, views.FormValidMessageMixin,
 class HomePageView(generic.TemplateView):
     template_name = 'home.html'
 
-class OutPageView(generic.TemplateView):
-    template_name = 'out.html'
+#class OutPageView(generic.TemplateView):
+#    template_name = 'out.html'
+
+class EmptyView(generic.View):
+    success_url = reverse_lazy('empty')
+
+#def logout_page(request):
+#           logout(request)
+#          return HttpResponseRedirect(request.GET.get('next', '/''))
 
 class LogoutView(views.LoginRequiredMixin, views.MessageMixin,
                  generic.RedirectView):
-    url = reverse_lazy('out')
+    url = reverse_lazy('home')
 
     def get(self, request, *args, **kwargs):
         #self.messages.success("You've been logged out. Come back soon!")
         logout(request)
         return super(LogoutView, self).get(request, *args, **kwargs)
+
+
+class SendPageView(generic.TemplateView, generic.RedirectView):
+    template_name = 'send.html'
+
+    def get(self, *args, **kwargs):
+        return HttpResponseRedirect(reverse_lazy('logout'))
