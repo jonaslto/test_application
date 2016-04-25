@@ -4,14 +4,36 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse_lazy
 from django.views import generic
+from django.views.generic import View
 from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import render
 
 from braces import views
 
 from talks.models import TalkList
 
-from .forms import RegistrationForm, LoginForm
+from .forms import RegistrationForm, LoginForm, NameForm
 
+#from mysite.views import logout_page
+
+
+def get_name(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = NameForm(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            return HttpResponseRedirect('/accounts/logout')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = NameForm()
+
+    return render(request, 'name.html', {'form': form})
 
 class SignUpView(views.AnonymousRequiredMixin, views.FormValidMessageMixin,
                  generic.CreateView):
@@ -49,20 +71,16 @@ class LoginView(views.AnonymousRequiredMixin, views.FormValidMessageMixin,
 class HomePageView(generic.TemplateView):
     template_name = 'home.html'
 
-#class OutPageView(generic.TemplateView):
-#    template_name = 'out.html'
+class OutPageView(generic.TemplateView):
+    template_name = 'out.html'
 
-class EmptyView(generic.View):
-    success_url = reverse_lazy('empty')
-
-#def logout_page(request):
-#           logout(request)
-#          return HttpResponseRedirect(request.GET.get('next', '/''))
+def logout_page(request):
+    logout(request)
+    return HttpResponseRedirect(request.GET.get('next', '/'))
 
 class LogoutView(views.LoginRequiredMixin, views.MessageMixin,
                  generic.RedirectView):
-    url = reverse_lazy('home')
-
+    url = reverse_lazy('out')
     def get(self, request, *args, **kwargs):
         #self.messages.success("You've been logged out. Come back soon!")
         logout(request)
@@ -71,6 +89,22 @@ class LogoutView(views.LoginRequiredMixin, views.MessageMixin,
 
 class SendPageView(generic.TemplateView, generic.RedirectView):
     template_name = 'send.html'
+    url = reverse_lazy('send')
 
-    def get(self, *args, **kwargs):
+    def get(self, request, *args, **kwargs):
+    #    logout_page(request)
+        return HttpResponseRedirect(reverse_lazy('sendconf'))
+        #HttpResponseRedirect(reverse_lazy('logout'))
+        #return super(SendPageView, self).get(request, *args, **kwargs)
+#        return HttpResponseRedirect(request.GET.get('next', '/'))
+
+class SendConfirmPageView(generic.TemplateView, generic.RedirectView):
+    #template_name = 'send.html'
+    #url = reverse_lazy('sendconf')
+
+    def get(self, request, *args, **kwargs):
+    #    logout_page(request)
         return HttpResponseRedirect(reverse_lazy('logout'))
+        #HttpResponseRedirect(reverse_lazy('logout'))
+        #return super(SendPageView, self).get(request, *args, **kwargs)
+#        return HttpResponseRedirect(request.GET.get('next', '/'))

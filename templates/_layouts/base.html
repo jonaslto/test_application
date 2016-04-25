@@ -32,9 +32,12 @@
             <a href="{% url 'signup' %}" class="btn btn-default navbar-btn">Register</a>
             <a href="{% url 'login' %}" class="btn btn-default navbar-btn">Login</a>
             {% else %}
-            <a href="{% url 'talks:lists:list' %}" class="btn btn-primary navbar-btn">Talk lists</a> -->
+            <a href="{% url 'talks:lists:list' %}" class="btn btn-primary navbar-btn">Talk lists</a> 
             <a href="{% url 'logout' %}" class="btn btn-default navbar-btn">Logout</a>
+            <a href="{% url 'logout2' %}?next={{request.path}}" class="btn btn-default navbar-btn">LogoutTEST</a>
+          <!--  <a href="/logout/?next={{request.path}}">Log out</a> -->
             <a href="{% url 'send' %}" class="btn btn-default navbar-btn">Send</a>
+            <a href="{% url 'form' %}" class="btn btn-default navbar-btn">Form</a>
             {% endif %}
         </div><!--/.navbar-collapse -->
       </div>

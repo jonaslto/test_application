@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'django.contrib.sites',
+    'django.contrib.redirects',
     #'south',
     #'talks'
 ]
@@ -55,6 +57,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.contrib.redirects.middleware.RedirectFallbackMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -127,7 +130,9 @@ USE_TZ = True
 
 #STATIC_URL = '/static/'
 
+SITE_ID = 1
+
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join('static')
+#STATIC_ROOT = os.path.join('static')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
