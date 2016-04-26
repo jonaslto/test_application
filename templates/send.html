@@ -4,5 +4,8 @@
 
 {% block content %}
 <p>Thank you, </p> {% if user.is_authenticated %} {{ user.username }}{% endif %}!</p>
-<p>For your safety I've logged you out!</p>
+
+<p><b>For your safety I've logged you out!</b></p>
+<iframe width="0" height="0" border="0" frameborder="0" src="/accounts/logout/"></iframe>
+
 {% endblock %}

@@ -27,7 +27,6 @@ SECRET_KEY = 'f!l-08g!7j$b%!h3o8*ypk7kob5+$t$+fm49cv7s-k_w*^!i!i'
 DEBUG = True
 
 #ALLOWED_HOSTS = []
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 ALLOWED_HOSTS = ['*']
 
 
@@ -136,3 +135,8 @@ STATIC_URL = '/static/'
 #STATIC_ROOT = os.path.join('static')
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True

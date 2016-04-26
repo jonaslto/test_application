@@ -3,5 +3,8 @@
 {% block headline %}<h1>Welcome to the Test app!</h1>{% endblock headline %}
 
 {% block content %}
-<p>Howdy </p> {% if user.is_authenticated %} {{ user.username }}{% endif %}!</p>
+<p>Howdy, </p> {% if user.is_authenticated %} {{ user.username }}
+{% else %}
+<p>You are not logged in</p>
+{% endif %}!</p>
 {% endblock %}
