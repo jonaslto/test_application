@@ -74,9 +74,10 @@ class LogoutView(views.LoginRequiredMixin, views.MessageMixin,
 
 class SendPageView(generic.TemplateView, generic.RedirectView):
     template_name = 'send.html'
-
     def get(self, request, *args, **kwargs):
         return HttpResponseRedirect(reverse_lazy('sendconf'))
 
 class SendConfirmPageView(generic.TemplateView, generic.RedirectView):
     template_name = 'send.html'
+    def get(self, request, *args, **kwargs):
+        return HttpResponseRedirect(reverse_lazy('logout'))
